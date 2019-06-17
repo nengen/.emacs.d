@@ -82,7 +82,7 @@
 (setq mac-option-key-is-meta t
       mac-command-key-is-meta t
       mac-command-modifier 'meta
-      mac-option-modifier 'meta)
+      mac-control-modifier ´caps
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -146,6 +146,17 @@
       '(company-dart (company-dabbrev company-yankpad)))))
 (require 'company-lsp)
 (push 'company-lsp company-backends)
+
+(elpy-enable)
+(elpy-use-ipython)
+
+ ;; use flycheck not flymake with elpy
+(when (require 'flycheck nil t)
+(setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+(add-hook 'elpy-mode-hook 'flycheck-mode))
+;; enable autopep8 formatting on save
+(require 'py-autopep8)
+(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
 (global-set-key (kbd "C-x g") 'magit-status)
 

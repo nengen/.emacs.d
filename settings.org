@@ -103,28 +103,28 @@
 #+BEGIN_SRC emacs-lisp
 
 
-;; jump to other frame (split screen)
-(global-set-key [C-tab] 'other-frame)
+  ;; jump to other frame (split screen)
+  (global-set-key [C-tab] 'other-frame)
 
-;; Mac option and command keys to meta (helps with non-Mac external keyboard)
-(setq mac-option-key-is-meta t
-      mac-command-key-is-meta t
-      mac-command-modifier 'meta
-      mac-option-modifier 'meta)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (magit company-lsp pos-tip company eglot treemacs lsp-dart lsp-mode dart-mode neotree doom-themes))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+  ;; Mac option and command keys to meta (helps with non-Mac external keyboard)
+  (setq mac-option-key-is-meta t
+	mac-command-key-is-meta t
+	mac-command-modifier 'meta
+	mac-control-modifier ´caps
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(package-selected-packages
+     (quote
+      (magit company-lsp pos-tip company eglot treemacs lsp-dart lsp-mode dart-mode neotree doom-themes))))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   )
 
 #+END_SRC
 
@@ -190,6 +190,21 @@
 (require 'company-lsp)
 (push 'company-lsp company-backends)
 #+END_SRC
+
+** Python
+   #+BEGIN_SRC emacs-lisp
+    (elpy-enable)
+    (elpy-use-ipython)
+
+     ;; use flycheck not flymake with elpy
+    (when (require 'flycheck nil t)
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook 'flycheck-mode))
+    ;; enable autopep8 formatting on save
+    (require 'py-autopep8)
+    (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+
+   #+END_SRC
 
 * Magit
 #+BEGIN_SRC emacs-lisp

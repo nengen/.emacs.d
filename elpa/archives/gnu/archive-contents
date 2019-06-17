@@ -637,7 +637,7 @@
 	  [(0 1)
 	   ((emacs
 	     (25)))
-	   "gnamÃ¹ reader, a reader with espeak tts" tar
+	   "gnamù reader, a reader with espeak tts" tar
 	   ((:keywords "tools" "accessibility")
 	    (:url . "http://elpa.gnu.org/packages/greader.html"))])
  (guess-language .
