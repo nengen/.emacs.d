@@ -1,0 +1,128 @@
+cd ..
+cd OneDrive/Skrivebord/flutter
+ls
+cd ..
+cd ..
+cd ..
+cd appdata
+cd roaming
+ls
+cd ..
+ls
+cd ..
+cd OneDrive/Skrivebord/flutter/cryptowatch/
+ls
+cd ..
+cd ..
+cd OneDrive/Skrivebord/flutter/cryptowatch/
+ls
+cd ..
+cd ..
+cd OneDrive/Skrivebord/flutter/cryptowatch/
+cd ..
+cd ..
+cd OneDrive/Skrivebord/flutter/cryptowatch/
+ls
+cd lib
+ls
+cd model
+ls
+ls
+cd ..
+cd ..
+cd OneDrive/Skrivebord/flutter/cryptowatch/
+ls
+cd lib
+cd model/
+ls
+cd ..
+cd ..
+cd OneDrive/Skrivebord/flutter/cryptowatch/
+ls
+cd lib
+cd models
+cd model/
+ls
+cd ..
+cd ..
+cd OneDrive/Skrivebord/flutter/cryptowatch/
+cd lib/model/
+ls
+cd OneDrive/Skrivebord/flutter/cryptowatch/
+cd lib/model/
+ls
+cd OneDrive/Skrivebord/flutter/cryptowatch/lib/model/
+ls
+cd ..
+cd ..
+cd ..
+ls
+cd family_assistant/
+ls
+ls
+cd lib
+ls
+cd OneDrive/Skrivebord/flutter/family_assistant/
+cd ..
+cd family_assistant/
+cd OneDrive/Skrivebord/
+cd flutter/family_assistant/
+flutter devices
+flutter run
+cd ..
+cd ..
+cd OneDrive/Skrivebord/flutter/family_assistant/
+ls
+flutter devices
+flutter run
+cd ..
+cd ..
+flutter packages get
+open -a Simulator
+cd ..
+git add -A
+git commit -m "started integrating facebook login"
+git push origin master
+git pull
+git push origin master
+git add -A
+git commit -m "started integrating facebook login"
+git push origin master
+git pull origin master
+cd family_assistant/
+cd lib/pages/
+ls
+cd ..
+cd ..
+cd ..
+git add -A
+git commit -m "fix"
+git push origin master
+cd OneDrive/Skrivebord/flutter/family_assistant/
+ld
+ls
+cd ..
+git pull origin master
+flutter devices
+flutter run
+cd family_assistant/
+flutter run
+flutter run
+cd ..
+cd ..
+cd ..
+cd OneDrive/Skrivebord/flutter/family_assistant/
+ls
+cd OneDrive/Skrivebord/flutter/family_assistant/
+ls
+cd lib/
+ls
+cd ..
+flutter run
+flutter clean
+flutter run
+flutter run
+cd ..
+git add -A
+git commit -m "Facebook login still not fixed"
+git push origin master
