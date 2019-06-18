@@ -1,4 +1,3 @@
-cd ..
 cd OneDrive/Skrivebord/flutter
 ls
 cd ..
@@ -126,3 +125,4 @@ cd ..
 git add -A
 git commit -m "Facebook login still not fixed"
 git push origin master
+ls

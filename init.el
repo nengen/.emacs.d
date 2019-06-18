@@ -9,7 +9,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (py-autopep8 elpy magit company-lsp pos-tip company eglot treemacs lsp-dart lsp-mode dart-mode neotree doom-themes))))
+    (ein py-autopep8 elpy magit company-lsp pos-tip company eglot treemacs lsp-dart lsp-mode dart-mode neotree doom-themes))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

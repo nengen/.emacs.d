@@ -1,6 +1,20 @@
 (require 'package)
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                    (not (gnutls-available-p))))
+       (proto (if no-ssl "http" "https")))
+  (when no-ssl
+    (warn "\
+Your version of Emacs does not support SSL connections,
+which is unsafe because it allows man-in-the-middle attacks.
+There are two things you can do about this warning:
+1. Install an Emacs version that does support SSL and be safe.
+2. Remove this warning from your init file so you won't see it again."))
+  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
+  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+  ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
+  (when (< emacs-major-version 24)
+    ;; For important compatibility libraries like cl-lib
+    (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 (package-initialize)
 
 (require 'doom-themes)
@@ -81,8 +95,7 @@
 ;; Mac option and command keys to meta (helps with non-Mac external keyboard)
 (setq mac-option-key-is-meta t
       mac-command-key-is-meta t
-      mac-command-modifier 'meta
-      mac-control-modifier ´caps
+      mac-command-modifier 'meta)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -148,15 +161,15 @@
 (push 'company-lsp company-backends)
 
 (elpy-enable)
-(elpy-use-ipython)
+ (setq python-shell-interpreter "ipython"
+   python-shell-interpreter-args "-i --simple-prompt")
 
- ;; use flycheck not flymake with elpy
-(when (require 'flycheck nil t)
-(setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-(add-hook 'elpy-mode-hook 'flycheck-mode))
-;; enable autopep8 formatting on save
-(require 'py-autopep8)
-(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+  ;; use flycheck not flymake with elpy
+ (when (require 'flycheck nil t)
+ (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+ (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+
 
 (global-set-key (kbd "C-x g") 'magit-status)
 
@@ -174,6 +187,9 @@
    (dot . t)
    (awk . t)
    ))
+
+(add-to-list 'org-structure-template-alist
+         '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC" ""))
 
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
