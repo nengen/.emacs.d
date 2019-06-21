@@ -1,34 +1,3 @@
-cd OneDrive/Skrivebord/flutter
-ls
-cd ..
-cd ..
-cd ..
-cd appdata
-cd roaming
-ls
-cd ..
-ls
-cd ..
-cd OneDrive/Skrivebord/flutter/cryptowatch/
-ls
-cd ..
-cd ..
-cd OneDrive/Skrivebord/flutter/cryptowatch/
-ls
-cd ..
-cd ..
-cd OneDrive/Skrivebord/flutter/cryptowatch/
-cd ..
-cd ..
-cd OneDrive/Skrivebord/flutter/cryptowatch/
-ls
-cd lib
-ls
-cd model
-ls
-ls
-cd ..
-cd ..
 cd OneDrive/Skrivebord/flutter/cryptowatch/
 ls
 cd lib
@@ -126,3 +95,34 @@ git add -A
 git commit -m "Facebook login still not fixed"
 git push origin master
 ls
+cd OneDrive/Skrivebord/flutter/
+cd family_assistant/
+flutter devices
+flutter devices
+flutter run
+cd ..
+cd ..
+flutter run
+cd Users/Nils-/OneDrive/Skrivebord/flutter/family_assistant/
+flutter devices
+flutter run
+cd ..
+cd ..
+flutter run
+cd ..
+cd ..
+cd ..
+cd ..
+cd Users/Nils-/OneDrive/Skrivebord/flutter/family_assistant/
+ls
+cd ..
+cd ..
+cd ..
+cd ~/.A
+cd ~/.emacs.d/
+cd ..
+cd ..
+flutter run
+cd ..
+ cd ..
+flutter run

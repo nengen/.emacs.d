@@ -17,25 +17,25 @@ There are two things you can do about this warning:
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 (package-initialize)
 
-(require 'doom-themes)
+;;(require 'doom-themes)
 
 ;; Global settings (defaults)
-(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-      doom-themes-enable-italic t) ; if nil, italics is universally disabled
+;;(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+;;      doom-themes-enable-italic t) ; if nil, italics is universally disabled
 
 ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
 ;; may have their own settings.
-(load-theme 'doom-one t)
+;(load-theme 'doom-one t)
 ;; Enable flashing mode-line on errors
-(doom-themes-visual-bell-config)
+;;(doom-themes-visual-bell-config)
 
 ;; Enable custom neotree theme (all-the-icons must be installed!)
-(doom-themes-neotree-config)
+;(doom-themes-neotree-config)
 ;; or for treemacs users
-(doom-themes-treemacs-config)
+;;(doom-themes-treemacs-config)
 
 ;; Corrects (and improves) org-mode's native fontification.
-(doom-themes-org-config)
+;(doom-themes-org-config)
 
 ;; no tool bar
 (tool-bar-mode 0)
@@ -75,6 +75,8 @@ There are two things you can do about this warning:
 ;; quick toggle fullscreen to match MacOS (Command + Control + f)
 (global-set-key (kbd "M-C-f") 'toggle-frame-fullscreen)
 
+(load-theme 'spacemacs-dark t)
+
 ;; use the tab key to make 4 spaces
 (setq tab-width 4)
 (setq indent-tabs-mode nil)
@@ -88,9 +90,11 @@ There are two things you can do about this warning:
 ;; allow upcase (C-x C-u) and downcase (C-x C-l) region
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+; Cycle candidates with C-n and C-p
+(setq ac-use-menu-map t)
 
 ;; jump to other frame (split screen)
-(global-set-key [C-tab] 'other-frame)
+(global-set-key [C-tab] 'ace-window)
 
 ;; Mac option and command keys to meta (helps with non-Mac external keyboard)
 (setq mac-option-key-is-meta t
@@ -139,12 +143,7 @@ There are two things you can do about this warning:
 (cl-defmethod project-roots ((project (head dart)))
   (list (cdr project)))
 
-(use-package flutter
-  :after dart-mode
-  :bind (:map dart-mode-map
-              ("C-M-x" . #'flutter-run-or-hot-reload))
-  :custom
-  (flutter-sdk-path "C:/Users/Nils-/OneDrive/Skrivebord/flutter/flutter"))
+
 
 ;;dart eglot
 (require 'eglot)
@@ -157,8 +156,8 @@ There are two things you can do about this warning:
 (add-hook 'dart-mode-hook (lambda ()
  (set (make-local-variable 'company-backends)
       '(company-dart (company-dabbrev company-yankpad)))))
-(require 'company-lsp)
-(push 'company-lsp company-backends)
+;(require 'company-lsp)
+;(push 'company-lsp company-backends)
 
 (elpy-enable)
  (setq python-shell-interpreter "ipython"
@@ -193,3 +192,9 @@ There are two things you can do about this warning:
 
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
+
+(require 'lsp-ui)
+(add-hook 'lsp-mode-hook 'lsp-ui-mode)
+(defalias 'lsp--cur-line-diagnotics 'lsp--cur-line-diagnostics)
+
+
