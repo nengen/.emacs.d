@@ -1,16 +1,3 @@
-cd ..
-cd OneDrive/Skrivebord/flutter/family_assistant/
-ls
-flutter devices
-flutter run
-cd ..
-cd ..
-flutter packages get
-open -a Simulator
-cd ..
-git add -A
-git commit -m "started integrating facebook login"
-git push origin master
 git pull
 git push origin master
 git add -A
@@ -119,10 +106,23 @@ flutter doctor
 brew install ios-deploy
 brew install --HEAD usbmuxd
 brew link usbmuxd
- brew install --HEAD libimobiledevice
+brew install --HEAD libimobiledevice
 flutter doctor
 flutter doctor
 flutter doctor
 flutter run
 flutter doctor
 flutter run
+ls
+cd family_assistant/
+flutter tests
+flutter 
+flutter test
+la
+ls
+flutter test test/menu_test.dart 
+flutter test test/menu_test.dart 
+flutter test test/menu_test.dart 
+flutter test test/menu_test.dart 
+flutter test test/menu_test.dart 
+flutter test test/menu_test.dart 
