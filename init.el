@@ -16,6 +16,7 @@
  '(company-lsp-cache-candidates t)
  '(custom-safe-themes
    '("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default))
+ '(ein:polymode t)
  '(fci-rule-color "#5B6268")
  '(font-lock-support-mode 'jit-lock-mode)
  '(jdee-db-active-breakpoint-face-colors (cons "#1B2229" "#51afef"))

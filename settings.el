@@ -95,6 +95,8 @@ There are two things you can do about this warning:
 
 ;; jump to other frame (split screen)
 (global-set-key [C-tab] 'ace-window)
+;; Disable right alt so we can type brackets
+(setq mac-right-option-modifier nil)
 
 ;; Mac option and command keys to meta (helps with non-Mac external keyboard)
 (setq mac-option-key-is-meta t

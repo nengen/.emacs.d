@@ -1,43 +1,3 @@
-cd OneDrive/Skrivebord/flutter/cryptowatch/
-ls
-cd lib
-cd model/
-ls
-cd ..
-cd ..
-cd OneDrive/Skrivebord/flutter/cryptowatch/
-ls
-cd lib
-cd models
-cd model/
-ls
-cd ..
-cd ..
-cd OneDrive/Skrivebord/flutter/cryptowatch/
-cd lib/model/
-ls
-cd OneDrive/Skrivebord/flutter/cryptowatch/
-cd lib/model/
-ls
-cd OneDrive/Skrivebord/flutter/cryptowatch/lib/model/
-ls
-cd ..
-cd ..
-cd ..
-ls
-cd family_assistant/
-ls
-ls
-cd lib
-ls
-cd OneDrive/Skrivebord/flutter/family_assistant/
-cd ..
-cd family_assistant/
-cd OneDrive/Skrivebord/
-cd flutter/family_assistant/
-flutter devices
-flutter run
-cd ..
 cd ..
 cd OneDrive/Skrivebord/flutter/family_assistant/
 ls
@@ -124,5 +84,45 @@ cd ..
 cd ..
 flutter run
 cd ..
- cd ..
+cd ..
+flutter run
+ls
+ls
+cd ..
+ls 
+cd kaggle
+ls
+cd titanic
+ls
+ls
+cd ..
+cd ..
+mkdir diary
+git init
+git clone https://github.com/nengen/diary.git
+cd diary
+ls
+git status
+cd family_assistant/
+flutter devices
+flutter --version
+flutter run
+ls
+flutter run
+flutter run
+flutter devices
+flutter run
+flutter devices
+flutter devices
+flutter devices
+flutter doctor
+brew install ios-deploy
+brew install --HEAD usbmuxd
+brew link usbmuxd
+ brew install --HEAD libimobiledevice
+flutter doctor
+flutter doctor
+flutter doctor
+flutter run
+flutter doctor
 flutter run
