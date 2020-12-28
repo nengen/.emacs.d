@@ -1,6 +1,3 @@
-
-
-
 * MELPA
 #+BEGIN_SRC emacs-lisp
 (require 'package)
@@ -50,50 +47,76 @@ There are two things you can do about this warning:
 
 ** Some visuals
 #+BEGIN_SRC emacs-lisp
-;; no tool bar
-(tool-bar-mode 0)
 
-;; no scroll bars
-(scroll-bar-mode -1)
+  (scroll-bar-mode -1)        ; Disable visible scrollbar
+  (tool-bar-mode -1)          ; Disable the toolbar
+  (tooltip-mode -1)           ; Disable tooltips
+  (set-fringe-mode 10)
+  (menu-bar-mode -1)          ; Disable the menu bar
 
-;; no start up message
-(setq inhibit-startup-message t)
-(setq initial-scratch-message "")
 
-;; removes *messages* from the buffer
-(setq-default message-log-max nil)
-(kill-buffer "*Messages*")
+  ;; no start up message
+  (setq inhibit-startup-message t)
+  (setq initial-scratch-message "")
 
-;; Removes *Completions* from buffer
-(add-hook 'minibuffer-exit-hook
-	  '(lambda ()
-	     (let ((buffer "*Completions*"))
-	       (and (get-buffer buffer)
-		    (kill-buffer buffer)))))
+  ;; removes *messages* from the buffer
+  (setq-default message-log-max nil)
+  (kill-buffer "*Messages*")
 
-;; no audible or visual bell when emacs is mad
-(setq ring-bell-function 'ignore)
+  ;; Removes *Completions* from buffer
+  (add-hook 'minibuffer-exit-hook
+	    '(lambda ()
+	       (let ((buffer "*Completions*"))
+		 (and (get-buffer buffer)
+		      (kill-buffer buffer)))))
 
-;; font size
-(set-face-attribute 'default nil :height 100)
+  ;; no audible or visual bell when emacs is mad
+  (setq ring-bell-function 'ignore)
 
-;; turn on line and column numbers
-(setq line-number-mode t)
-(setq column-number-mode t)
+  ;; font size
+  (set-face-attribute 'default nil :height 100)
 
-;; default frame size
-(add-to-list 'default-frame-alist '(width . 90)
-	     '(height . 100))
+  ;; turn on line and column numbers
+  (setq line-number-mode t)
+  (setq column-number-mode t)
 
-;; quick toggle fullscreen to match MacOS (Command + Control + f)
-(global-set-key (kbd "M-C-f") 'toggle-frame-fullscreen)
+  ;; default frame size
+  (add-to-list 'default-frame-alist '(width . 90)
+	       '(height . 100))
+
+  ;; quick toggle fullscreen to match MacOS (Command + Control + f)
+  (global-set-key (kbd "M-C-f") 'toggle-frame-fullscreen)
 #+END_SRC
 
+Set frame transparency and maximize windows by default.
+#+BEGIN_SRC emacs-lisp
+(set-frame-parameter (selected-frame) 'alpha '(97 . 97))
+  (add-to-list 'default-frame-alist '(alpha . (97 . 97)))
+  (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+#+END_SRC
+** Highlight Matching Braces
+#+BEGIN_SRC emacs-lisp
+(use-package paren
+  :config
+  (set-face-attribute 'show-paren-match-expression nil :background "#363e4a")
+  (show-paren-mode 1))
+#+END_SRC
 ** spacemacs theme
 #+BEGIN_SRC emacs-lisp
 (load-theme 'spacemacs-dark t)
 #+END_SRC
+** Font
+#+BEGIN_SRC emacs-lisp
+;; Set the font face based on platform
+  (set-face-attribute 'default nil :font "Hack")
 
+;; Set the fixed pitch face
+(set-face-attribute 'fixed-pitch nil :font "Hack")
+
+;; Set the variable pitch face
+(set-face-attribute 'variable-pitch nil :font "Hack" :weight 'regular)
+#+END_SRC
 
 * GENERAL SETTINGS
 #+BEGIN_SRC emacs-lisp
@@ -113,7 +136,11 @@ There are two things you can do about this warning:
 ; Cycle candidates with C-n and C-p
 (setq ac-use-menu-map t)
 #+END_SRC
-
+Check if it is termux
+#+BEGIN_SRC emacs-lisp
+(setq dw/is-termux
+      (string-suffix-p "Android" (string-trim (shell-command-to-string "uname -a"))))
+#+END_SRC
 
 * KEY BINDINGS/MODIFICATIONS
 #+BEGIN_SRC emacs-lisp
@@ -157,7 +184,6 @@ There are two things you can do about this warning:
 ;; All the icons for neotree icons
 (require 'all-the-icons)
 #+END_SRC
-
 
 * Company-mode
 #+BEGIN_SRC emacs-lisp
@@ -219,44 +245,87 @@ There are two things you can do about this warning:
    #+BEGIN_SRC emacs-lisp
    
    #+END_SRC 
+** Javascript
+#+BEGIN_SRC emacs-lisp
+
+#+END_SRC
 * Magit
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-x g") 'magit-status)
 #+END_SRC
 
-
 * Org
+
 ** Org babel
 #+BEGIN_SRC emacs-lisp
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '(
-   (emacs-lisp . t)
-   (org . t)
-   (shell . t)
-   (C . t)
-   (python . t)
-   (gnuplot . t)
-   (octave . t)
-   (R . t)
-   (dot . t)
-   (awk . t)
-   ))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (python . t)
+     (jupyter . t)))
 
-(add-to-list 'org-structure-template-alist
-         '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC" ""))
-   
+    (add-to-list 'org-structure-template-alist
+     '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC" ""))
+
+
+    (add-to-list 'org-structure-template-alist
+     '("ji" "#+BEGIN_SRC jupyter-python :session py\n?\n#+END_SRC" ""))
+
+
+
 #+END_SRC
-
-*** Templates
-#+BEGIN_EXAMPLE
-
-#+END_EXAMPLE
 
 ** Org
 #+BEGIN_SRC emacs-lisp
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
+(use-package org-bullets
+    :custom
+    (org-hide-leading-stars t)
+    :hook org)
+(use-package org-superstar
+  
+  :after org
+  :hook (org-mode . org-superstar-mode)
+  :custom
+  (org-superstar-remove-leading-stars t)
+  (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+;; Replace list hyphen with dot
+;; (font-lock-add-keywords 'org-mode
+;;                         '(("^ *\\([-]\\) "
+;;                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+(dolist (face '((org-level-1 . 1.2)
+                (org-level-2 . 1.1)
+                (org-level-3 . 1.05)
+                (org-level-4 . 1.0)
+                (org-level-5 . 1.1)
+                (org-level-6 . 1.1)
+                (org-level-7 . 1.1)
+                (org-level-8 . 1.1)))
+    (set-face-attribute (car face) nil :font "Cantarell" :weight 'regular :height (cdr face)))
+
+;; Make sure org-indent face is available
+(require 'org-indent)
+
+;; Ensure that anything that should be fixed-pitch in Org files appears that way
+(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+
+;; TODO: Others to consider
+;; '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
+;; '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+;; '(org-property-value ((t (:inherit fixed-pitch))) t)
+;; '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+;; '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
+;; '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
+;; '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
 #+END_SRC
 * LSP
 ** LSP-UI
@@ -266,7 +335,60 @@ There are two things you can do about this warning:
 (defalias 'lsp--cur-line-diagnotics 'lsp--cur-line-diagnostics)
 #+END_SRC
 ** LSP-MODE
+* Eshell
+* Academic writing
+** Helm
+
 #+BEGIN_SRC emacs-lisp
+(use-package helm
+    :init
+    (setq helm-split-window-default-side 'other)
+    (helm-mode 1))
+#+END_SRC
+
+** Bibtex and apa6
+
+#+BEGIN_SRC emacs-lisp
+  (setenv "PKG_CONFIG_PATH" "/usr/local/Cellar/zlib/1.2.8/lib/pkgconfig:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig") ;; Zotero
+  (use-package helm-bibtex
+    :custom
+    (helm-bibtex-bibliography '("~/zotero.bib"))
+    (reftex-default-bibliography '("~/zotero.bib"))
+    (bibtex-completion-pdf-field "file")
+    :hook (Tex . (lambda () (define-key Tex-mode-map "\C-ch" 'helm-bibtex))))
+
+  (use-package org-ref
+    :custom
+    (org-ref-default-bibliography "~/zotero.bib"))
+
+  (defun org-export-latex-no-toc (depth)
+    (when depth
+      (format "%% Org-mode is exporting headings to %s levels.\n"
+	      depth)))
+  (setq org-export-latex-format-toc-function 'org-export-latex-no-toc)
+  (add-to-list 'org-latex-classes
+               '("apa6"
+                 "\\documentclass{apa6}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  (setq org-latex-pdf-process
+    '("latexmk -pdflatex='pdflatex -interaction nonstopmode' -pdf -bibtex -f %f"))
+
 
 #+END_SRC
-* Eshell
+** PDF-tools
+#+BEGIN_SRC emacs-lisp
+  (use-package pdf-tools
+   :config
+   ;; initialise
+   (pdf-tools-install)
+   ;; open pdfs scaled to fit width
+   (setq-default pdf-view-display-size 'fit-width)
+   ;; use normal isearch
+   (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward)
+   :custom
+   (pdf-annot-activate-created-annotations t "automatically annotate highlights"))
+#+END_SRC

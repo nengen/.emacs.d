@@ -1,0 +1,2 @@
+;;; Generated package description from /Users/Nengen/.emacs.d/elpa/yankpad-20200108.1811/yankpad.el  -*- no-byte-compile: t -*-
+(define-package "yankpad" "20200108.1811" "Paste snippets from an org-mode file" '((emacs "25")) :commit "dd97994a8bff58e4d98aa6cb90aa08c5ddde5c82" :keywords '("abbrev" "convenience") :authors '(("Erik Sjöstrand")) :maintainer '("Erik Sjöstrand") :url "http://github.com/Kungsgeten/yankpad")

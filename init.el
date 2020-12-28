@@ -23,8 +23,9 @@
  '(jdee-db-requested-breakpoint-face-colors (cons "#1B2229" "#98be65"))
  '(jdee-db-spec-breakpoint-face-colors (cons "#1B2229" "#3f444a"))
  '(lsp-imenu-sort-methods '(name))
+ '(org-agenda-files '("~/bugbounty/research/notes/orgmode.org"))
  '(package-selected-packages
-   '(lsp-dart dart-mode yasnippet-snippets spacemacs-theme lsp-ui flycheck-pos-tip yankpad flutter ein py-autopep8 elpy magit company-lsp pos-tip company eglot treemacs lsp-mode neotree doom-themes))
+   '(org-superstar indium cyberpunk-theme yesql-ghosts jupyter lsp-dart dart-mode yasnippet-snippets spacemacs-theme lsp-ui flycheck-pos-tip yankpad flutter ein py-autopep8 elpy magit company-lsp pos-tip company eglot treemacs lsp-mode neotree doom-themes))
  '(vc-annotate-background "#282c34")
  '(vc-annotate-color-map
    (list

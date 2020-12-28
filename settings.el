@@ -37,11 +37,12 @@ There are two things you can do about this warning:
 ;; Corrects (and improves) org-mode's native fontification.
 ;(doom-themes-org-config)
 
-;; no tool bar
-(tool-bar-mode 0)
+(scroll-bar-mode -1)        ; Disable visible scrollbar
+(tool-bar-mode -1)          ; Disable the toolbar
+(tooltip-mode -1)           ; Disable tooltips
+(set-fringe-mode 10)
+(menu-bar-mode -1)          ; Disable the menu bar
 
-;; no scroll bars
-(scroll-bar-mode -1)
 
 ;; no start up message
 (setq inhibit-startup-message t)
@@ -75,7 +76,26 @@ There are two things you can do about this warning:
 ;; quick toggle fullscreen to match MacOS (Command + Control + f)
 (global-set-key (kbd "M-C-f") 'toggle-frame-fullscreen)
 
+(set-frame-parameter (selected-frame) 'alpha '(97 . 97))
+  (add-to-list 'default-frame-alist '(alpha . (97 . 97)))
+  (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+(use-package paren
+  :config
+  (set-face-attribute 'show-paren-match-expression nil :background "#363e4a")
+  (show-paren-mode 1))
+
 (load-theme 'spacemacs-dark t)
+
+;; Set the font face based on platform
+  (set-face-attribute 'default nil :font "Hack")
+
+;; Set the fixed pitch face
+(set-face-attribute 'fixed-pitch nil :font "Hack")
+
+;; Set the variable pitch face
+(set-face-attribute 'variable-pitch nil :font "Hack" :weight 'regular)
 
 ;; use the tab key to make 4 spaces
 (setq tab-width 4)
@@ -92,6 +112,9 @@ There are two things you can do about this warning:
 (put 'upcase-region 'disabled nil)
 ; Cycle candidates with C-n and C-p
 (setq ac-use-menu-map t)
+
+(setq dw/is-termux
+      (string-suffix-p "Android" (string-trim (shell-command-to-string "uname -a"))))
 
 ;; jump to other frame (split screen)
 (global-set-key [C-tab] 'ace-window)
@@ -172,31 +195,117 @@ There are two things you can do about this warning:
 
 
 
+
+
 (global-set-key (kbd "C-x g") 'magit-status)
 
 (org-babel-do-load-languages
  'org-babel-load-languages
- '(
-   (emacs-lisp . t)
-   (org . t)
-   (shell . t)
-   (C . t)
+ '((emacs-lisp . t)
    (python . t)
-   (gnuplot . t)
-   (octave . t)
-   (R . t)
-   (dot . t)
-   (awk . t)
-   ))
+   (jupyter . t)))
 
-(add-to-list 'org-structure-template-alist
-         '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC" ""))
+  (add-to-list 'org-structure-template-alist
+   '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC" ""))
+
+
+  (add-to-list 'org-structure-template-alist
+   '("ji" "#+BEGIN_SRC jupyter-python :session py\n?\n#+END_SRC" ""))
 
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
+(use-package org-bullets
+    :custom
+    (org-hide-leading-stars t)
+    :hook org)
+(use-package org-superstar
+  
+  :after org
+  :hook (org-mode . org-superstar-mode)
+  :custom
+  (org-superstar-remove-leading-stars t)
+  (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+;; Replace list hyphen with dot
+;; (font-lock-add-keywords 'org-mode
+;;                         '(("^ *\\([-]\\) "
+;;                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+(dolist (face '((org-level-1 . 1.2)
+                (org-level-2 . 1.1)
+                (org-level-3 . 1.05)
+                (org-level-4 . 1.0)
+                (org-level-5 . 1.1)
+                (org-level-6 . 1.1)
+                (org-level-7 . 1.1)
+                (org-level-8 . 1.1)))
+    (set-face-attribute (car face) nil :font "Cantarell" :weight 'regular :height (cdr face)))
+
+;; Make sure org-indent face is available
+(require 'org-indent)
+
+;; Ensure that anything that should be fixed-pitch in Org files appears that way
+(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+
+;; TODO: Others to consider
+;; '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
+;; '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+;; '(org-property-value ((t (:inherit fixed-pitch))) t)
+;; '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+;; '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
+;; '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
+;; '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
 
 (require 'lsp-ui)
 (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 (defalias 'lsp--cur-line-diagnotics 'lsp--cur-line-diagnostics)
 
+(use-package helm
+    :init
+    (setq helm-split-window-default-side 'other)
+    (helm-mode 1))
 
+(setenv "PKG_CONFIG_PATH" "/usr/local/Cellar/zlib/1.2.8/lib/pkgconfig:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig") ;; Zotero
+(use-package helm-bibtex
+  :custom
+  (helm-bibtex-bibliography '("~/zotero.bib"))
+  (reftex-default-bibliography '("~/zotero.bib"))
+  (bibtex-completion-pdf-field "file")
+  :hook (Tex . (lambda () (define-key Tex-mode-map "\C-ch" 'helm-bibtex))))
+
+(use-package org-ref
+  :custom
+  (org-ref-default-bibliography "~/zotero.bib"))
+
+(defun org-export-latex-no-toc (depth)
+  (when depth
+    (format "%% Org-mode is exporting headings to %s levels.\n"
+	    depth)))
+(setq org-export-latex-format-toc-function 'org-export-latex-no-toc)
+(add-to-list 'org-latex-classes
+             '("apa6"
+               "\\documentclass{apa6}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+(setq org-latex-pdf-process
+  '("latexmk -pdflatex='pdflatex -interaction nonstopmode' -pdf -bibtex -f %f"))
+
+(use-package pdf-tools
+ :config
+ ;; initialise
+ (pdf-tools-install)
+ ;; open pdfs scaled to fit width
+ (setq-default pdf-view-display-size 'fit-width)
+ ;; use normal isearch
+ (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward)
+ :custom
+ (pdf-annot-activate-created-annotations t "automatically annotate highlights"))
